@@ -1,5 +1,5 @@
 # equate
-Simple wrapper rsync to ease two syncing
+Simple wrapper rsync to ease two-way syncing
 
 ## Installation
 
