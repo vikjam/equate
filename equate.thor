@@ -21,7 +21,7 @@ class Equate < Thor
         # Get working directory
         local_dir = Dir.getwd().gsub(Regexp.new(Dir.home()), "")
         pull_rsync  = %Q[rsync -chavzP --stats 'vikjam@equity.mit.edu:"/home/vikjam#{local_dir}/#{folder}"' '#{Dir.pwd}']
-        pull_notify = %Q[ osascript -e 'display notification "Grabbed #{folder}!" with title "Terminal" sound name "Frog"']
+        pull_notify = %Q[osascript -e 'display notification "Grabbed #{folder}!" with title "Terminal" sound name "Frog"']
         
         # Compile string and send to command line
         cmd = "#{pull_rsync} && #{pull_notify}"
