@@ -19,4 +19,4 @@ thor equate pull "Tables"
 ```
 
 ## Shortcut
-Add ``alias te='thor equate'`` to your ``.bashrc`` file to save some keystrokes.
+Add ``alias te='thor equate'`` to your ``bash_profile`` or ``.bashrc`` file to save some keystrokes.
