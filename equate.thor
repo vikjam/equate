@@ -5,11 +5,17 @@ require 'thor'
 class Equate < Thor
 
     desc "push FOLDER", "send FOLDER to remote server"
+    method_option :delete, :type => :boolean, :default => FALSE, :desc => "Delete files in remote if not in local"
     def push(folder)
+        # Parse options
+        delete_opt = ""
+        if options[:delete]
+            delete_opt = "--delete"
+        end
         # Get working directory
-        local_dir = Dir.getwd().gsub(Regexp.new(Dir.home()), "")
-        push_rsync  = %Q[rsync -chavzP --stats '#{Dir.pwd}/#{folder}' 'vikjam@equity.mit.edu:"/home/vikjam#{local_dir}"']
-        push_notify = %Q[osascript -e 'display notification "Sent #{folder}!" with title "Terminal" sound name "Frog"']
+        local_dir = Dir.getwd().gsub(Regexp.new(Dir.home()), "").gsub(/^\//, "")
+        push_rsync  = %Q[rsync -chavzP --stats #{delete_opt} '#{Dir.pwd}/#{folder}' 'vikjam@equity.mit.edu:"/home/vikjam/#{local_dir}"']
+        push_notify = %Q[osascript -e 'display notification "Sent #{folder}!" with title "Terminal" sound name "Tink"']
 
         # Compile string and send to command line
         cmd = "#{push_rsync} && #{push_notify}"
@@ -17,11 +23,17 @@ class Equate < Thor
     end
 
     desc "pull FOLDER", "grab FOLDER from remote server"
+    method_option :delete, :type => :boolean, :default => FALSE, :desc => "Delete files in local if not in remote"
     def pull(folder)
+        # Parse options
+        delete_opt = ""
+        if options[:delete]
+            delete_opt = "--delete"
+        end
         # Get working directory
-        local_dir = Dir.getwd().gsub(Regexp.new(Dir.home()), "")
-        pull_rsync  = %Q[rsync -chavzP --stats 'vikjam@equity.mit.edu:"/home/vikjam#{local_dir}/#{folder}"' '#{Dir.pwd}']
-        pull_notify = %Q[osascript -e 'display notification "Grabbed #{folder}!" with title "Terminal" sound name "Frog"']
+        local_dir = Dir.getwd().gsub(Regexp.new(Dir.home()), "").gsub(/^\//, "")
+        pull_rsync  = %Q[rsync -chavzP --stats #{delete_opt} 'vikjam@equity.mit.edu:"/home/vikjam/#{local_dir}/#{folder}"' '#{Dir.pwd}']
+        pull_notify = %Q[osascript -e 'display notification "Grabbed #{folder}!" with title "Terminal" sound name "Tink"']
         
         # Compile string and send to command line
         cmd = "#{pull_rsync} && #{pull_notify}"
