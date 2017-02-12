@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'thor'
+require './config.rb'
 
 class Equate < Thor
 
