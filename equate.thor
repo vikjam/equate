@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'thor'
-require './config.rb'
+# require './config.rb'
 
 class Equate < Thor
 
@@ -15,7 +15,7 @@ class Equate < Thor
         end
         # Get working directory
         local_dir = Dir.getwd().gsub(Regexp.new(Dir.home()), "").gsub(/^\//, "")
-        push_rsync  = %Q[rsync -chavzP --stats #{delete_opt} '#{Dir.pwd}/#{folder}' 'vikjam@equity.mit.edu:"/home/vikjam/#{local_dir}"']
+        push_rsync  = %Q[rsync -chavzP --stats #{delete_opt} '#{Dir.pwd}/#{folder}' 'ssrde:"/home/vjambula/#{local_dir}"']
         push_notify = %Q[osascript -e 'display notification "Sent #{folder}!" with title "Terminal" sound name "Tink"']
 
         # Compile string and send to command line
@@ -33,7 +33,7 @@ class Equate < Thor
         end
         # Get working directory
         local_dir = Dir.getwd().gsub(Regexp.new(Dir.home()), "").gsub(/^\//, "")
-        pull_rsync  = %Q[rsync -chavzP --stats #{delete_opt} 'vikjam@equity.mit.edu:"/home/vikjam/#{local_dir}/#{folder}"' '#{Dir.pwd}']
+        pull_rsync  = %Q[rsync -chavzP --stats #{delete_opt} 'ssrde:"/home/vjambula/#{local_dir}/#{folder}"' '#{Dir.pwd}']
         pull_notify = %Q[osascript -e 'display notification "Grabbed #{folder}!" with title "Terminal" sound name "Tink"']
         
         # Compile string and send to command line
