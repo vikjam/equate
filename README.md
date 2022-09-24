@@ -19,7 +19,7 @@ thor install equate.thor
 # Push files to remote server
 thor equate push "Scripts"
 # Grab files from remote server
-thor equate pull "Tables"
+thor equate --remote "remote-name" --path "/prefix/path" pull "Tables"
 ```
 
 ## Update
